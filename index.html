@@ -344,250 +344,94 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>微信分享卡片生成工具</h1>
-            <p>为任意网站生成带标题、缩略图和简介的微信分享卡片</p>
+    <div style="max-width: 600px; margin: 0 auto; padding: 40px; text-align: center;">
+        <!-- 分享按钮区域 -->
+        <div style="background: #f9fafb; border-radius: 12px; padding: 30px; margin-bottom: 30px; border: 2px solid #e5e7eb;">
+            <h2 style="color: #374151; margin-bottom: 20px;">分享到</h2>
+            
+            <!-- 分享按钮 -->
+            <div style="display: flex; justify-content: center; gap: 20px; margin: 30px 0;">
+                <!-- 微信分享 -->
+                <div style="text-align: center;">
+                    <div onclick="shareToWechat()" style="width: 80px; height: 80px; background: #07C160; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0 auto 10px;">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </div>
+                    <div style="color: #6b7280; font-size: 14px;">微信</div>
+                </div>
+                
+                <!-- 复制链接 -->
+                <div style="text-align: center;">
+                    <div onclick="copyLink()" style="width: 80px; height: 80px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0 auto 10px;">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </div>
+                    <div style="color: #6b7280; font-size: 14px;">复制链接</div>
+                </div>
+                
+                <!-- 微博分享 -->
+                <div style="text-align: center;">
+                    <div onclick="shareToWeibo()" style="width: 80px; height: 80px; background: #e6162d; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0 auto 10px;">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 12h8"></path>
+                            <path d="M12 8v8"></path>
+                        </svg>
+                    </div>
+                    <div style="color: #6b7280; font-size: 14px;">微博</div>
+                </div>
+            </div>
+            
+            <!-- 分享提示 -->
+            <p style="color: #6b7280; font-size: 14px; margin-top: 20px;">
+                点击下方按钮分享给朋友，或复制链接后分享
+            </p>
         </div>
         
-        <div class="content">
-            <div class="tab-container">
-                <div class="tab-buttons">
-                    <button class="tab-button active" onclick="switchTab('extract')">自动提取</button>
-                    <button class="tab-button" onclick="switchTab('manual')">手动输入</button>
-                </div>
-                
-                <div id="extract" class="tab-content active">
-                    <div class="form-group">
-                        <label for="targetUrl">目标网站URL</label>
-                        <input type="url" id="targetUrl" placeholder="请输入要分享的网站链接，例如：https://example.com/article">
-                        <div class="hint">输入想要分享的文章链接，工具会尝试提取相关信息</div>
-                    </div>
-                    
-                    <button class="btn" onclick="extractInfo()">提取网站信息</button>
-                    
-                    <div id="extractResult" class="extract-result" style="display: none;"></div>
-                </div>
-                
-                <div id="manual" class="tab-content">
-                    <div class="form-group">
-                        <label for="manualTitle">分享标题</label>
-                        <input type="text" id="manualTitle" placeholder="输入分享时显示的标题（建议20字以内）">
-                        <div class="hint">标题会显示在分享卡片上，建议简洁明了</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="manualDesc">分享简介</label>
-                        <textarea id="manualDesc" placeholder="输入分享时显示的简介（建议50字以内）"></textarea>
-                        <div class="hint">简介会显示在标题下方，描述文章的主要内容</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="manualImage">缩略图URL</label>
-                        <input type="url" id="manualImage" placeholder="输入分享时显示的图片链接（推荐尺寸：900x500px）">
-                        <div class="hint">图片必须是可公开访问的HTTPS链接，建议使用图床上传</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="manualSource">来源</label>
-                        <input type="text" id="manualSource" placeholder="输入文章来源，例如：某某公众号、某某网站">
-                        <div class="hint">来源信息会显示在分享卡片底部</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="manualTarget">原文章链接</label>
-                        <input type="url" id="manualTarget" placeholder="输入原文章链接，用户点击后会跳转到这里">
-                        <div class="hint">这是用户点击分享卡片后要跳转的实际链接</div>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="btn" onclick="generateHTML()">生成分享页面</button>
-            
-            <div id="result" class="result-section" style="display: none;">
-                <h3>生成结果</h3>
-                
-                <div class="preview-card" id="previewCard">
-                    <img id="previewImage" src="" alt="预览图">
-                    <h4 id="previewTitle">标题</h4>
-                    <p id="previewDesc">简介</p>
-                    <p id="previewSource" style="font-size: 12px; color: #9ca3af; margin-top: 10px;">来源</p>
-                </div>
-                
-                <p>复制以下HTML代码，保存为 <code>index.html</code> 文件：</p>
-                <div class="code-block" id="htmlCode"></div>
-                
-                <button class="btn btn-secondary" onclick="copyCode()">复制代码</button>
-                
-                <div class="instructions">
-                    <h4>上传指南（推荐使用Vercel，微信兼容性最好）：</h4>
-                    <ol>
-                        <li>访问 <a href="https://vercel.com" target="_blank">Vercel</a> 并登录（可使用GitHub账号）</li>
-                        <li>点击 "New Project" → "Upload"</li>
-                        <li>拖拽 <code>index.html</code> 文件到上传区域，或点击 "Select" 选择文件</li>
-                        <li>点击 "Deploy" 开始部署（约1-2分钟）</li>
-                        <li>部署完成后，获取生成的链接（如 <code>https://share-link.vercel.app</code>）</li>
-                        <li>在微信中发送该链接，会自动显示分享卡片</li>
-                        <li>用户点击卡片后会自动跳转到原文章链接</li>
-                    </ol>
-                    
-                    <h4>其他上传选项：</h4>
-                    <ul>
-                        <li><strong>GitHub Pages</strong>：创建公开仓库，上传文件并开启Pages功能</li>
-                        <li><strong>Netlify</strong>：拖拽文件上传，获取分享链接</li>
-                        <li><strong>Coding Pages</strong>：国内访问速度快，适合微信分享</li>
-                    </ul>
-                    
-                    <h4>注意事项：</h4>
-                    <ul>
-                        <li>图片URL必须是HTTPS且可公开访问的链接</li>
-                        <li>推荐使用图床（如 <a href="https://imgur.com" target="_blank">Imgur</a>）上传图片获取稳定链接</li>
-                        <li>首次分享到微信可能需要等待5-10分钟让微信爬虫抓取</li>
-                        <li>如果分享后不显示卡片，尝试清除微信缓存后重试</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <!-- 跳转提示 -->
+        <p style="color: #6b7280; margin-bottom: 30px;">
+            正在跳转到目标页面...
+        </p>
     </div>
     
+    <!-- 分享功能脚本 -->
     <script>
-        let extractedInfo = {};
-        
-        function switchTab(tabName) {
-            var tabs = document.querySelectorAll('.tab-button');
-            var contents = document.querySelectorAll('.tab-content');
-            
-            tabs.forEach(function(tab) {
-                tab.classList.remove('active');
-            });
-            contents.forEach(function(content) {
-                content.classList.remove('active');
-            });
-            
-            document.querySelector('[onclick="switchTab(\'' + tabName + '\')"]').classList.add('active');
-            document.getElementById(tabName).classList.add('active');
+        // 微信分享
+        function shareToWechat() {
+            const url = window.location.href;
+            alert('请使用微信扫描二维码或长按识别二维码进行分享');
+            // 实际项目中可以生成二维码
+            console.log('微信分享链接:', url);
         }
         
-        function extractInfo() {
-            var url = document.getElementById('targetUrl').value;
-            if (!url) {
-                alert('请输入目标网站URL');
-                return;
-            }
-            
-            extractedInfo = {
-                title: '示例文章标题',
-                description: '这是一篇示例文章的简介，描述了文章的主要内容和价值。',
-                image: 'https://via.placeholder.com/900x500/667eea/ffffff?text=Share+Card',
-                source: '示例来源',
-                url: url
-            };
-            
-            var extractResultDiv = document.getElementById('extractResult');
-            extractResultDiv.innerHTML = '<h4>提取结果（模拟）</h4>' +
-                '<p><strong>标题：</strong>' + extractedInfo.title + '</p>' +
-                '<p><strong>简介：</strong>' + extractedInfo.description + '</p>' +
-                '<p><strong>图片：</strong>' + extractedInfo.image + '</p>' +
-                '<p><strong>来源：</strong>' + extractedInfo.source + '</p>' +
-                '<p><strong>原URL：</strong>' + extractedInfo.url + '</p>' +
-                '<div class="warning">' +
-                '<strong>提示：</strong>由于浏览器跨域限制，本地无法直接抓取跨域网站信息。此处为模拟结果，供参考。请手动确认信息是否正确，或切换到"手动输入"选项卡填写准确信息。' +
-                '</div>';
-            extractResultDiv.style.display = 'block';
+        // 复制链接
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url)
+                .then(() => {
+                    alert('链接已复制到剪贴板，可直接粘贴分享给朋友');
+                })
+                .catch(err => {
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动复制链接');
+                });
         }
         
-        function generateHTML() {
-            var info;
-            
-            if (document.getElementById('extract').classList.contains('active')) {
-                if (!extractedInfo.title) {
-                    alert('请先点击"提取网站信息"按钮获取模拟数据，或切换到"手动输入"选项卡');
-                    return;
-                }
-                info = extractedInfo;
-            } else {
-                var title = document.getElementById('manualTitle').value;
-                var description = document.getElementById('manualDesc').value;
-                var image = document.getElementById('manualImage').value;
-                var source = document.getElementById('manualSource').value;
-                var targetUrl = document.getElementById('manualTarget').value;
-                
-                if (!title || !description || !image || !targetUrl) {
-                    alert('请填写所有必填字段（标题、简介、图片、原文章链接）');
-                    return;
-                }
-                
-                info = {
-                    title: title,
-                    description: description,
-                    image: image,
-                    source: source || '未知来源',
-                    url: targetUrl
-                };
-            }
-            
-            var htmlCode = '<!DOCTYPE html>\n' +
-                '<html lang="zh-CN">\n' +
-                '<head>\n' +
-                '    <meta charset="UTF-8">\n' +
-                '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
-                '    <title>' + escapeHTML(info.title) + '</title>\n' +
-                '    <!-- Open Graph协议元数据 -->\n' +
-                '    <meta property="og:title" content="' + escapeHTML(info.title) + '">\n' +
-                '    <meta property="og:description" content="' + escapeHTML(info.description) + '">\n' +
-                '    <meta property="og:image" content="' + info.image + '">\n' +
-                '    <meta property="og:url" content="__DEPLOY_URL__">\n' +
-                '    <meta property="og:type" content="article">\n' +
-                '    <meta property="og:site_name" content="' + escapeHTML(info.source) + '">\n' +
-                '    <!-- 微信特定元数据 -->\n' +
-                '    <meta name="description" content="' + escapeHTML(info.description) + '">\n' +
-                '    <meta name="keywords" content="' + escapeHTML(info.title) + ',' + escapeHTML(info.source) + '">\n' +
-                '    <!-- Twitter Card元数据 -->\n' +
-                '    <meta name="twitter:card" content="summary_large_image">\n' +
-                '    <meta name="twitter:title" content="' + escapeHTML(info.title) + '">\n' +
-                '    <meta name="twitter:description" content="' + escapeHTML(info.description) + '">\n' +
-                '    <meta name="twitter:image" content="' + info.image + '">\n' +
-                '    <!-- 自动重定向 -->\n' +
-                '    <meta http-equiv="refresh" content="0; url=' + info.url + '">\n' +
-                '</head>\n' +
-                '<body>\n' +
-                '    <p>正在跳转到目标页面...</p>\n' +
-                '    <script>\n' +
-                '        window.location.href = \'' + info.url + '\';\n' +
-                '    <\/script>\n' +
-                '</body>\n' +
-                '</html>';
-            
-            document.getElementById('htmlCode').textContent = htmlCode;
-            document.getElementById('result').style.display = 'block';
-            
-            document.getElementById('previewImage').src = info.image;
-            document.getElementById('previewTitle').textContent = info.title;
-            document.getElementById('previewDesc').textContent = info.description;
-            document.getElementById('previewSource').textContent = info.source;
-            
-            window.scrollTo({ top: document.getElementById('result').offsetTop, behavior: 'smooth' });
+        // 微博分享
+        function shareToWeibo() {
+            const url = window.location.href;
+            const title = document.querySelector('title').textContent;
+            const weiboUrl = `http://service.weibo.com/share/share.php?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+            window.open(weiboUrl, '_blank', 'width=600,height=400');
         }
         
-        function escapeHTML(str) {
-            return str
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
-        }
-        
-        async function copyCode() {
-            var code = document.getElementById('htmlCode').textContent;
-            try {
-                await navigator.clipboard.writeText(code);
-                alert('代码已复制到剪贴板');
-            } catch (err) {
-                console.error('复制失败:', err);
-                alert('复制失败，请手动复制代码');
-            }
-        }
+        // 自动跳转
+        setTimeout(() => {
+            window.location.href = '${info.url}';
+        }, 5000); // 5秒后跳转，给用户时间点击分享
     </script>
 </body>
 </html>
