@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vercel部署测试</title>
+    <meta property="og:title" content="分享卡片测试">
+    <meta property="og:description" content="这是用于测试Vercel部署的页面">
+    <meta property="og:image" content="https://img.alicdn.com/tfs/TB1mJzvXHGYBuNjy0FoXXciBFXa-600-400.jpg">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .steps {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            margin-top: 30px;
+        }
+        .step {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ Vercel 部署成功！</h1>
+        <p>您的分享卡片页面已成功部署</p>
+        
+        <div class="steps">
+            <h3>分享到微信步骤：</h3>
+            <div class="step">1. 复制当前页面URL</div>
+            <div class="step">2. 在手机微信中打开</div>
+            <div class="step">3. 点击右上角"..."菜单</div>
+            <div class="step">4. 选择"发送给朋友"</div>
+        </div>
+        
+        <p style="margin-top: 30px; font-size: 1em;">
+            如需自定义内容，请使用完整版页面
+        </p>
+    </div>
+</body>
+</html>
