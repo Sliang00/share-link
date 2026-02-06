@@ -19,13 +19,100 @@
     <meta name="twitter:title" content="亚马尔获《世界体育报》奖项，称将全力助巴萨争冠">
     <meta name="twitter:description" content="亚马尔是上周《世界体育报》盛大晚会上的一大亮点，该晚会也庆祝了这家报纸成立120周年。在因其上赛季惊艳表现而接受《世界体育报》颁奖之前，亚马尔接受了本报的采访。">
     <meta name="twitter:image" content="http://k.sinaimg.cn/n/sinakd/sni/63/w1120h543/20260205/5787-1a88a66c7d97d59c8c47d436f53b7678.jpg/w700d1q75cms.jpg?by=cms_fixed_width">
-    <!-- 自动重定向 -->
-    <meta http-equiv="refresh" content="0; url=https://k.sina.com.cn/article_1698513182_653d411e04001pf48.html?from=sports&subch=osport">
+    <!-- 延迟重定向（5秒） -->
+    <meta http-equiv="refresh" content="5; url=https://k.sina.com.cn/article_1698513182_653d411e04001pf48.html?from=sports&subch=osport">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .card-content {
+            padding: 30px;
+        }
+        .card h1 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .card p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .card .source {
+            font-size: 14px;
+            color: #999;
+            margin-top: 20px;
+        }
+        .countdown {
+            text-align: center;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .countdown p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+        .countdown .time {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <p>正在跳转到目标页面...</p>
+    <div class="card">
+        <img src="http://k.sinaimg.cn/n/sinakd/sni/63/w1120h543/20260205/5787-1a88a66c7d97d59c8c47d436f53b7678.jpg/w700d1q75cms.jpg?by=cms_fixed_width" alt="分享图片">
+        <div class="card-content">
+            <h1>亚马尔获《世界体育报》奖项，称将全力助巴萨争冠</h1>
+            <p>亚马尔是上周《世界体育报》盛大晚会上的一大亮点，该晚会也庆祝了这家报纸成立120周年。在因其上赛季惊艳表现而接受《世界体育报》颁奖之前，亚马尔接受了本报的采访。</p>
+            <p class="source">来源：新浪体育</p>
+            <div class="countdown">
+                <p>正在跳转到原文章...</p>
+                <div class="time" id="countdown">5</div>
+                <p>秒后自动跳转</p>
+            </div>
+        </div>
+    </div>
     <script>
-        window.location.href = 'https://k.sina.com.cn/article_1698513182_653d411e04001pf48.html?from=sports&subch=osport';
+        var seconds = 5;
+        var countdownEl = document.getElementById("countdown");
+        var interval = setInterval(function() {
+            seconds--;
+            if (countdownEl) {
+                countdownEl.textContent = seconds;
+            }
+            if (seconds <= 0) {
+                clearInterval(interval);
+                window.location.href = 'https://k.sina.com.cn/article_1698513182_653d411e04001pf48.html?from=sports&subch=osport';
+            }
+        }, 1000);
     </script>
 </body>
 </html>
